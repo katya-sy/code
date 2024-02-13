@@ -1,27 +1,38 @@
-function getMathResult([num1, sign, num2]) {
-  const number1 = +num1;
-  const number2 = +num2;
+function getMathResult(array) {
+  if (array.length < 3) {
+    return "Error count";
+  }
 
-  if (!isNaN(number1) && !isNaN(number2)) {
-    switch (sign) {
-      case "+":
-        return number1 + number2;
-      case "-":
-        return number1 - number2;
-      case "/":
-        return number1 / number2;
-      case "*":
-        return number1 * number2;
-      case ">":
-        return number1 > number2;
-      case "<":
-        return number1 < number2;
-      default:
-        return "Error";
-    }
-  } else return "Error";
+  const allowedSigns = ["+", "-", "/", "*", ">", "<"];
+  const [sign] = array.filter((element) => allowedSigns.includes(element));
+
+  const numbers = array
+    .filter((item) => !isNaN(parseFloat(item)))
+    .map((item) => +item);
+
+  if (numbers.length !== 2) {
+    return "Error numbers";
+  }
+
+  const number1 = numbers[0],
+    number2 = numbers[1];
+
+  switch (sign) {
+    case "+":
+      return number1 + number2;
+    case "-":
+      return number1 - number2;
+    case "/":
+      return number1 / number2;
+    case "*":
+      return number1 * number2;
+    case ">":
+      return number1 > number2;
+    case "<":
+      return number1 < number2;
+    default:
+      return "Error";
+  }
 }
 
-console.log(getMathResult(["1", "+", "12"]));
-
-// в процессе
+console.log(getMathResult(["1", "fkj", "+", "12"]));
